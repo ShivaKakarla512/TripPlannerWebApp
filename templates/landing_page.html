@@ -3,7 +3,7 @@
 {% block content %}
 
 	<h1 class="blue">TriPlanned</h1>
-	<h2 style="color:red">Where friends and family share travel plans!</h2>
+	<h2 style="color:red">Where friends can share travel plans!</h2>
 	<h3 >Travelers on Triplanned are going to:</h3>
 	{% for post in posts %}
 		<ul>&#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }}</ul>
