@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h1 class="blue">Tri Planned</h1>
+	<h2 style="color:red">Where you and your friends share travel plans.</h2>
+	<h3 >Travelers on Triplanned are going to:</h3>
+	{% for post in posts %}
+		<ul>&#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }}</ul>
+    {% endfor %}
+
+{% endblock %}

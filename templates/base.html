@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                background-color: #E8DCD9;
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+            }
+            
+            .blue{
+                color:#187bcd
+            }
+        </style>
+        
+        {% if title %}
+        <title>{{ title }} - TriPlanned</title>
+        {% else %}
+        <title>Welcome to TriPlanned</title>
+        {% endif %}
+    </head>
+
+    <body>
+        <div>
+            <h3 class="blue">TriPlanned</h3>
+            <a class="blue pull-left" href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_anonymous %}
+            <a class="blue pull-right" href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a class="blue pull-right" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+            <a class="blue pull-left" href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
