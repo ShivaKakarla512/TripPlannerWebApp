@@ -5,7 +5,13 @@ from os import environ
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "my_secret"
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
+
+uri = environ.get("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
