@@ -1,6 +1,6 @@
 from app import app, db, login
 from flask import request, render_template, flash, redirect,url_for
-from models import User, Post
+from models import User, Post, Like
 from forms import RegistrationForm, LoginForm, DestinationForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
@@ -22,7 +22,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            next_page = url_for("loggedin", username=current_user.username)
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
@@ -57,10 +57,29 @@ def user(username):
 
 @app.route('/')
 def index():
-  posts = Post.query.all()
-  if not posts:
-    posts=[]
-  return render_template('landing_page.html', posts=posts)
+    posts = Post.query.all()
+    if not posts:
+        posts=[]
+    return render_template('landing_page.html', posts=posts)
+
+@app.route('/<username>')
+def loggedin(username):
+    posts = Post.query.all()
+    if not posts:
+        posts=[]
+    return render_template('logged_page.html', posts=posts)
+
+@app.route('/<int:post_id>/<action>')
+@login_required
+def like_action(post_id, action):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if action == 'like':
+        current_user.like_post(post)
+        db.session.commit()
+    if action == 'unlike':
+        current_user.unlike_post(post)
+        db.session.commit()
+    return redirect(url_for("loggedin", username=current_user.username))
 
 @app.route('/logout')
 def logout():

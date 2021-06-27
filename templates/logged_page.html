@@ -8,6 +8,12 @@
 	<ul>
 		{% for post in posts %}
 			&#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }} - {{ post.likes.count() }}
+			{% if current_user.has_liked_post(post) %}
+				<a href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
+			{% else %}
+				<a href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
+			{% endif %}
+		
     	{% endfor %}
 	</ul>
 

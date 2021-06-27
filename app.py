@@ -6,7 +6,7 @@ from os import environ
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "my_secret"
 
-uri = environ.get("DATABASE_URL") or 'sqlite:///my_database.db'  # or other relevant config var
+uri = environ.get("DATABASE_URL") or 'sqlite:///my_database.db'
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
