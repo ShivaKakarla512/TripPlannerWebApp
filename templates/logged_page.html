@@ -5,16 +5,16 @@
 	<h1 class="blue">TriPlanned</h1>
 	<h2 style="color:red">Where friends can share travel plans!</h2>
 	<h3 >Travelers on Triplanned are going to:</h3>
-	<ul>
-		{% for post in posts %}
+
+	{% for post in posts %}
+		<ul>
 			&#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }} - {{ post.likes.count() }}
 			{% if current_user.has_liked_post(post) %}
 				<a href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
 			{% else %}
 				<a href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
 			{% endif %}
-		
-    	{% endfor %}
-	</ul>
+		</ul>
+	{% endfor %}
 
 {% endblock %}
