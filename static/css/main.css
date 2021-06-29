@@ -125,6 +125,16 @@ img{
   cursor: pointer;
 }
 
+.nav__logo, 
+.nav__item, 
+.nav__toggle, 
+.home__title, 
+.home__description, 
+.home__button, 
+.home__img {
+  visibility: hidden;
+}
+
 .nav__item{
   margin-bottom: 2rem;
 }
@@ -202,7 +212,7 @@ img{
   border-radius: 3rem;
   border-style: solid;
   border-color: var(--first-color-dark);
-  transition: .3s;
+  /* transition: .3s; */
 }
 
 .home__button i {
