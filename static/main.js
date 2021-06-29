@@ -41,6 +41,6 @@ gsap.from('.home__description', {opacity: 0, duration: 1, delay:1, y: 30})
 gsap.from('.home__button', {opacity: 0, duration: 1, delay:1.2, y: 30})
 // gsap.from('.home__img', {opacity: 0, duration: 1, delay:2, y: 30})
 
-TweenMax.to('.home__img', 5, {
+TweenMax.to('.home__img', 7, {
     autoAlpha: 1
 });
