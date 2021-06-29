@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="view" id="view">
+        <div class="view__container">
+            {% for post in posts %}
+                <ul>
+                    &#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }} - {{ post.likes.count() }}
+                </ul>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

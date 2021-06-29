@@ -44,20 +44,30 @@
                 </div>
             </nav>
         </header>
-        
-        <section class="content">
-            <div>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p class="message">{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
 
-                {% block content %}{% endblock %}
-            </div>
-        </section>
+        <main class="l-main">
+            <!--===== HOME =====-->
+            <section class="home" id="home">
+                <div class="home__container bd-grid">
+                    <div class="home__img">
+                        <img src="../static/img/11.png" alt="" data-speed="-2" class="move">
+                        <img src="../static/img/22.png" alt="" data-speed="2" class="move">
+                        <img src="../static/img/33.png" alt="" data-speed="1" class="move">
+                        <img src="../static/img/44.png" alt="" data-speed="-1" class="move">
+                    </div>
+
+                    <div class="home__data">
+                        <h1 class="home__title"> Travel<br><span>Cube</span></h1>
+                        <p class="home__description">Platform for friends to share <br> their travel plans.</p>
+                        {% if current_user.is_anonymous %}
+                        <a href="{{ url_for('plans') }}" class="home__button">See Plans <i class='bx bxs-plane-alt'></i></a>
+                        {% else %}
+                        <a href="{{ url_for('authplans', username=current_user.username) }}" class="home__button">See Plans <i class='bx bxs-plane-alt'></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </main>
 
         <!--===== GSAP =====-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>

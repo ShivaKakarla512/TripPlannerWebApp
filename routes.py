@@ -12,7 +12,7 @@ def load_user(id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('plans'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -22,14 +22,14 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for("loggedin", username=current_user.username)
+            next_page = url_for("user", username=current_user.username)
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index')) 
+        return redirect(url_for('plans')) 
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -57,17 +57,21 @@ def user(username):
 
 @app.route('/')
 def index():
-    posts = Post.query.all()
-    if not posts:
-        posts=[]
-    return render_template('landing_page.html', posts=posts)
+    return render_template('home.html')
 
-@app.route('/<username>')
-def loggedin(username):
+@app.route('/plans')
+def plans():
     posts = Post.query.all()
     if not posts:
         posts=[]
-    return render_template('logged_page.html', posts=posts)
+    return render_template('plans.html', posts=posts)
+
+@app.route('/<username>/plans')
+def authplans(username):
+    posts = Post.query.all()
+    if not posts:
+        posts=[]
+    return render_template('authplans.html', posts=posts)
 
 @app.route('/<int:post_id>/<action>')
 @login_required
@@ -79,7 +83,15 @@ def like_action(post_id, action):
     if action == 'unlike':
         current_user.unlike_post(post)
         db.session.commit()
-    return redirect(url_for("loggedin", username=current_user.username))
+    return redirect(url_for("authplans", username=current_user.username))
+
+@app.route('/<int:post_id>/')
+@login_required
+def delete(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    current_user.delete_post(post)
+    db.session.commit()
+    return redirect(url_for("user", username=current_user.username))
 
 @app.route('/logout')
 def logout():

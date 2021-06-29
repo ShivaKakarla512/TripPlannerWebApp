@@ -9,8 +9,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
 
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
-    liked = db.relationship('Like', backref='user', lazy='dynamic')
+    posts = db.relationship('Post', backref='author', lazy='dynamic', cascade = 'all, delete, delete-orphan')
+    liked = db.relationship('Like', backref='user', lazy='dynamic', cascade = 'all, delete, delete-orphan')
 
     def like_post(self, post):
         if not self.has_liked_post(post):
@@ -23,6 +23,9 @@ class User(UserMixin, db.Model):
 
     def has_liked_post(self, post):
         return Like.query.filter(Like.user_id == self.id, Like.post_id == post.id).count() > 0
+
+    def delete_post(self, post):
+        db.session.delete(post)
   
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -42,7 +45,7 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    likes = db.relationship('Like', backref='post', lazy='dynamic')
+    likes = db.relationship('Like', backref='post', lazy='dynamic', cascade = 'all, delete, delete-orphan')
 
     def __repr__(self):
         return '<Post {}>'.format(self.description)
