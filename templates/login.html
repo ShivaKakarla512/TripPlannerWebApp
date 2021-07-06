@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="l-form">
-        <div class="shape1"></div>
-        <div class="shape2"></div>
 
-        <div class="form">
-            <img src="../static/img/auth.svg" alt="" class="form__img">
-        
+    <div class="screen">
+        <div class="form bd-grid">
             <form action="" method="post" class="form__content">
-                <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
-                <h1 class="form__title">Welcome</h1>
+                <h1 class="form__title">Welcome!</h1>
                 {{ form.hidden_tag() }}
-
-                <div class="form__div form__div-one">
+    
+                <div class="form__div">
                     <div class="form__icon">
                         <i class='bx bx-user-circle'></i>
                     </div>
-
+    
                     <div class="form__div-input">
                         {{ form.username.label(class="form__label") }}
                         {{ form.username(class="form__input") }}
@@ -26,12 +21,12 @@
                         {% endfor %}
                     </div>
                 </div>
-
+    
                 <div class="form__div">
                     <div class="form__icon">
                         <i class='bx bx-lock' ></i>
                     </div>
-
+    
                     <div class="form__div-input">
                         {{ form.password.label(class="form__label") }}
                         {{ form.password(class="form__input") }}
@@ -41,10 +36,14 @@
                     </div>
                 </div>
                 
-                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p >{{ form.remember_me(class="remember") }} {{ form.remember_me.label }}</p>
                 {{ form.submit(class="form__button") }}
+
+                <p class="new">New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
             </form>
+
+            <img class="loginimg" src="../static/img/login.png" alt="">
         </div>
     </div>
-    
+
 {% endblock %}
