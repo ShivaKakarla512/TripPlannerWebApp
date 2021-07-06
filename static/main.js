@@ -50,7 +50,7 @@ function move(e){
 }
 
 /*===== GSAP ANIMATION =====*/
-TweenMax.to('.nav__logo, .nav__item, .nav__toggle, .home__title, .home__description, .home__button', 0, {
+TweenMax.to('.nav__logo, .nav__item, .nav__toggle, .home__title, .home__description, .home__button, .form__content, .img', 0, {
     autoAlpha: 1
 });
 
@@ -63,6 +63,10 @@ gsap.from('.home__title', {opacity: 0, duration: 1, delay:.8, y: 30})
 gsap.from('.home__description', {opacity: 0, duration: 1, delay:1, y: 30})
 gsap.from('.home__button', {opacity: 0, duration: 1, delay:1.2, y: 30})
 // gsap.from('.home__img', {opacity: 0, duration: 1, delay:2, y: 30})
+
+// LOGIN/REGISTER
+gsap.from('.form__content', {opacity: 0, duration: 1, delay:.8, y: 30})
+gsap.from('.img', {opacity: 0, duration: 1, delay:1, y: 30})
 
 TweenMax.to('.home__img', 7, {
     autoAlpha: 1

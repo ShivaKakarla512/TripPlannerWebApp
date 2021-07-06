@@ -67,11 +67,11 @@ a{
     justify-self: center;
     width: 500px;
     height: 500px;
-    /* border: 1rem green solid; */
+    visibility: hidden;
 }
 
 .form__content{
-    /* border: 1rem red solid; */
+    visibility: hidden;
 }
 
 .form__title{
@@ -190,7 +190,7 @@ a{
     .bd-grid {
         margin-left: auto;
         margin-right: auto;
-        column-gap: 0rem;
+        column-gap: 2rem;
     }
 
     .img {
