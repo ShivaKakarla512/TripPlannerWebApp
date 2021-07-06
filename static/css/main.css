@@ -228,7 +228,7 @@ img{
 
 /*===== VIEW =====*/
 .message {
-  color: #000;
+  color: red;
   font-size: var(--normal-font-size);
 }
 

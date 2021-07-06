@@ -1,49 +1,112 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- =====BOX ICONS===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-{% block content %}
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 
-    <div class="screen">
-        <div class="form bd-grid">
-            <form action="" method="post" class="form__content">
-                <h1 class="form__title">Welcome!</h1>
-                {{ form.hidden_tag() }}
-    
-                <div class="form__div">
-                    <div class="form__icon">
-                        <i class='bx bx-user-circle'></i>
-                    </div>
-    
-                    <div class="form__div-input">
-                        {{ form.username.label(class="form__label") }}
-                        {{ form.username(class="form__input") }}
-                        {% for error in form.username.errors %}
-                            <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                    </div>
-                </div>
-    
-                <div class="form__div">
-                    <div class="form__icon">
-                        <i class='bx bx-lock' ></i>
-                    </div>
-    
-                    <div class="form__div-input">
-                        {{ form.password.label(class="form__label") }}
-                        {{ form.password(class="form__input") }}
-                        {% for error in form.password.errors %}
-                            <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                    </div>
+        <title>Travel Cube</title>
+    </head>
+
+    <body>
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                <div>
+                    <a href="{{ url_for('index') }}" class="nav__logo">Travel Cube</a>
                 </div>
                 
-                <p >{{ form.remember_me(class="remember") }} {{ form.remember_me.label }}</p>
-                {{ form.submit(class="form__button") }}
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
 
-                <p class="new">New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
-            </form>
+                <div class="nav__menu" id="nav-menu">
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
+                    </div>
 
-            <img class="loginimg" src="../static/img/login.png" alt="">
-        </div>
-    </div>
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link active">Home</a></li>
+                        {% if current_user.is_anonymous %}
+                        <li class="nav__item"><a href="{{ url_for('plans') }}" class="nav__link active">Plans</a></li>
+                        <li class="nav__item"><a href="{{ url_for('register') }}" class="nav__link auth">Register</a></li>
+                        <li class="nav__item"><a href="{{ url_for('login') }}" class="nav__link auth">Login</a></li>
+                        {% else %}
+                        <li class="nav__item"><a href="{{ url_for('authplans', username=current_user.username) }}" class="nav__link">Plans</a></li>
+                        <li class="nav__item"><a href="{{ url_for('user', username=current_user.username) }}" class="nav__link">Profile</a></li>
+                        <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link auth">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
 
-{% endblock %}
+        <section class="content">
+            <div>
+                <div class="screen">
+                    <div class="form bd-grid">
+                        <form action="" method="post" class="form__content">
+                            <h1 class="form__title">Welcome!</h1>
+                            {{ form.hidden_tag() }}
+                
+                            <div class="form__div">
+                                <div class="form__icon">
+                                    <i class='bx bx-user-circle'></i>
+                                </div>
+                
+                                <div class="form__div-input">
+                                    {{ form.username.label(class="form__label") }}
+                                    {{ form.username(class="form__input") }}
+                                </div>
+                            </div>
+                
+                            <div class="form__div">
+                                <div class="form__icon">
+                                    <i class='bx bx-lock' ></i>
+                                </div>
+                
+                                <div class="form__div-input">
+                                    {{ form.password.label(class="form__label") }}
+                                    {{ form.password(class="form__input") }}
+                                </div>
+                            </div>
+                            
+                            <p >{{ form.remember_me(class="remember") }} {{ form.remember_me.label }}</p>
+                            {{ form.submit(class="form__button") }}
+            
+                            <p class="new">New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+
+                            {% for error in form.username.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+
+                            {% for error in form.password.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <p class="message">{{ message }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </form>
+            
+                        <img class="img" src="../static/img/login.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--===== GSAP =====-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="{{ url_for('static', filename='main.js') }}"> </script>
+    </body>
+</html>

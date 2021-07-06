@@ -32,13 +32,33 @@ def register():
         return redirect(url_for('plans')) 
     form = RegistrationForm()
     if form.validate_on_submit():
-        if form.validate_username(form.username.data) and form.validate_email(form.email.data):
-            user = User(username=form.username.data, email=form.email.data)
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            flash('Congratulations, you are now a registered user!')
-            return redirect(url_for('login'))
+        user1 = User.query.filter_by(username=form.username.data).first()
+        if user1 is not None:
+            flash('Please use a different username')
+            return redirect(url_for('register'))
+
+        user2 = User.query.filter_by(email=form.email.data).first()
+        if user2 is not None:
+            flash('Please use a different email address')
+            return redirect(url_for('register'))
+        
+        if '@' not in form.email.data:
+            flash('Please enter a valid email address')
+            return redirect(url_for('register'))
+
+        if form.password.data != form.password2.data:
+            flash('Please make sure passwords match')
+            return redirect(url_for('register'))
+
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for("login")
+        return redirect(next_page)
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/user/<username>',methods=['GET', 'POST'])
