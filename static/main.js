@@ -49,7 +49,7 @@ function move(e){
     })
 }
 
-document.addEventListener('touchmove', move);
+document.addEventListener('touchmove', mobilemove);
 function mobilemove(e){
     this.querySelectorAll('.move').forEach(layer => {
         const speed = layer.getAttribute('data-speed')
