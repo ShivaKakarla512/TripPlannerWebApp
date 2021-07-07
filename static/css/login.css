@@ -63,11 +63,7 @@ a{
 }
 
 .img {
-    position: relative;
-    justify-self: center;
-    width: 500px;
-    height: 500px;
-    visibility: hidden;
+    display: none;
 }
 
 .form__content{
@@ -75,9 +71,10 @@ a{
 }
 
 .form__title{
-    font-size: 5rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .form__div{
@@ -94,8 +91,9 @@ a{
 }
 
 .new {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .new a {
@@ -155,10 +153,11 @@ a{
 }
 
 .form__button{
+    text-align: center;
     width: 100%;
     padding: 1rem;
     font-size: var(--normal-font-size);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     background-color: var(--first-color);
     color: white;
     padding: 1.125rem 2rem;
@@ -186,6 +185,14 @@ a{
         margin: auto 0;
         width: 450px;
     }
+    .form__title{
+        font-size: 5rem;
+        text-align: initial;
+    }
+    .form__button{
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 
     .bd-grid {
         margin-left: auto;
@@ -194,9 +201,17 @@ a{
     }
 
     .img {
+        position: relative;
+        justify-self: center;
         width: 500px;
         height: 500px;
-        /* margin-bottom: 2rem; */
+        visibility: hidden;
+        display: grid;
+    }
+
+    .new {
+        font-size: 1rem;
+        text-align: initial;
     }
 }
 

@@ -108,10 +108,10 @@ img{
     position: fixed;
     top: 0;
     right: -100%;
-    width: 70%;
+    width: 50%;
     height: 100%;
     padding: 3.5rem 1.5rem 0;
-    background: rgba(255,255,255,.3);
+    background: rgba(19,29,39,.3);
     backdrop-filter: blur(10px);
     transition: .5s;
   }
@@ -170,9 +170,11 @@ img{
 }
 
 .home__container{
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh);
+  padding-top: calc(var(--header-height) + 1rem);
   grid-template-rows: repeat(2, max-content);
-  row-gap: 1.5rem;
+  row-gap: 5.5rem;
+  text-align: center;
 }
 
 .home__img{
@@ -194,13 +196,18 @@ img{
 }
 
 .home__title{
-  font-size: var(--big-font-size);
-  line-height: 1.3;
+  font-size: 2rem;
+  line-height: 2.7rem;
   margin-bottom: 1rem;
 }
 
+.home__title span {
+  color: var(--first-color-dark);
+  font-size: 3rem;
+}
+
 .home__description{
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .home__button{
@@ -228,8 +235,9 @@ img{
 
 /*===== VIEW =====*/
 .message {
+  text-align: center;
   color: red;
-  font-size: var(--normal-font-size);
+  font-size: .8rem;
 }
 
 /* .view, .login, .register, .user {
@@ -292,19 +300,24 @@ img{
   .home__container{
     justify-content: center;
     column-gap: 4rem;
+    row-gap: 1.5rem;
+    padding-left: 1rem;
+    text-align: initial;
   }
   .home__data {
     margin-left: 5rem;
   }
   .home__title {
+    font-size: var(--big-font-size);
     line-height: 6rem;
+    margin-bottom: 1.5rem;
   }
   .home__title span {
-    color: var(--first-color-dark);
     font-size: 7rem;
   }
   .home__description {
     font-size: 1.5rem;
+    margin-bottom: 2.5rem;
   }
   .home__img{
     width: 650px;
@@ -312,5 +325,10 @@ img{
   }
   .home__img img{
     width: 650px;
+  }
+
+  .message {
+    font-size: var(--normal-font-size);
+    text-align: initial;
   }
 }
