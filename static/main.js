@@ -1,3 +1,4 @@
+screen.orientation.lock();
 /*===== FOCUS =====*/
 const inputs = document.querySelectorAll(".form__input")
 
@@ -38,8 +39,6 @@ closeMenu.addEventListener('click', ()=>{
 
 /*===== MOUSEMOVE HOME IMG =====*/
 document.addEventListener('mousemove', move);
-document.addEventListener('touchmove', move);
-document.addEventListener('drag', move);
 
 function move(e){
     this.querySelectorAll('.move').forEach(layer =>{
