@@ -1,4 +1,4 @@
-screen.orientation.lock();
+// screen.orientation.lock();
 /*===== FOCUS =====*/
 const inputs = document.querySelectorAll(".form__input")
 
