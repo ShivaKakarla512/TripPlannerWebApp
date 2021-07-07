@@ -19,17 +19,12 @@
   --z-fixed: 100;
 }
 
-@media screen and (min-width: 220px) and (max-width: 767px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
+/* @media only screen and (orientation:landscape){
+  body {
+    height: 100vw;
+    transform: rotate(90deg);
   }
-}
+} */
 
 @media screen and (min-width: 768px){
   :root{
