@@ -36,6 +36,12 @@ closeMenu.addEventListener('click', ()=>{
     navMenu.classList.remove('show')
 })
 
+const main = document.getElementById('main');
+
+main.addEventListener('click', () => {
+    navMenu.classList.remove('show')
+})
+
 /*===== MOUSEMOVE HOME IMG =====*/
 document.addEventListener('mousemove', move);
 

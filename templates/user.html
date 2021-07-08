@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="user">
+    <div class="user" id="main">
         <h1 style="color:red">Welcome back {{current_user.username}}!</h1>
         <h2>List of trips you are currently planning: 
             {% for post in posts %}
