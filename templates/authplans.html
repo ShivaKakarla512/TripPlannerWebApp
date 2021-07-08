@@ -2,19 +2,31 @@
 
 {% block content %}
 
-    <section class="view" id="view">
-        <div class="view__container">
+    <div class="outer">
+        <div class="inner">
+            <h1 class="header">Check out where everyone is going!</h1>
             {% for post in posts %}
-                <ul>
-                    &#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }} - {{ post.likes.count() }}
-                    {% if current_user.has_liked_post(post) %}
-                        <a href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
-                    {% else %}
-                        <a href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
-                    {% endif %}
-                </ul>
+                <div class="plans">
+                    <div class="city">
+                        <p class="cityname">{{ post.city | title}}</p>
+                        <p class="description">{{ post.description }}</p>
+                    </div>
+                    
+                    <div class="authtime">
+                        <p class="author">{{ post.author.username }} - <span class="time">{{ post.timestamp.strftime('%I:%M %p, %b %d %Y') }}</span></p>
+                    </div>
+
+                    <div class="likess">
+                        <p class="countt">{{ post.likes.count() }}</p>
+                        {% if current_user.has_liked_post(post) %}
+                            <p><a href="{{ url_for('like_action', post_id=post.id, action='unlike') }}"><i class='bx bxs-heart likeicon'></i></a></p>
+                        {% else %}
+                            <p><a href="{{ url_for('like_action', post_id=post.id, action='like') }}"><i class='bx bx-heart likeicon'></i></a></p>
+                        {% endif %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
-    </section>
+    </div>
 
 {% endblock %}

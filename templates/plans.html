@@ -2,14 +2,27 @@
 
 {% block content %}
 
-    <section class="view" id="view">
-        <div class="view__container">
+    <div class="outer">
+        <div class="inner">
+            <h1 class="header">Check out where everyone is going!</h1>
             {% for post in posts %}
-                <ul>
-                    &#128205;{{ post.city }} - {{ post.description }} - {{ post.author.username }} - {{ post.likes.count() }}
-                </ul>
+                <div class="plans">
+                    <div class="city">
+                        <p class="cityname">{{ post.city | title}}</p>
+                        <p class="description">{{ post.description }}</p>
+                    </div>
+                    
+                    <div class="authtime">
+                        <p class="author">{{ post.author.username }} - <span class="time">{{ post.timestamp.strftime('%I:%M %p, %b %d %Y') }}</span></p>
+                    </div>
+
+                    <div class="likes">
+                        <p class="label">Likes</p>
+                        <p class="count">{{ post.likes.count() }}</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
-    </section>
+    </div>
 
 {% endblock %}
