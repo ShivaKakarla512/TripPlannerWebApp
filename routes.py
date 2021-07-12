@@ -64,17 +64,18 @@ def register():
 @app.route('/user/<username>',methods=['GET', 'POST'])
 @login_required
 def user(username):
-	user = current_user
-	user = User.query.filter_by(username=user.username).first()
-	posts = Post.query.filter_by(user_id=user.id)
-	if posts is None:
-		posts = []
-	form = DestinationForm()
-	if request.method == 'POST' and form.validate():
-		new_destination = Post(city = form.city.data,country=form.country.data,description=form.description.data, user_id=current_user.id)
-		db.session.add(new_destination)
-		db.session.commit()
-	return render_template('user.html', user=user, posts=posts, form=form)
+    user = current_user
+    user = User.query.filter_by(username=user.username).first()
+    posts = Post.query.filter_by(user_id=user.id)
+    if posts is None:
+        posts = []
+    form = DestinationForm()
+    if request.method == 'POST' and form.validate():
+        new_destination = Post(city = form.city.data,country=form.country.data,description=form.description.data, user_id=current_user.id)
+        db.session.add(new_destination)
+        db.session.commit()
+        return redirect (url_for("authplans", username=user.username))
+    return render_template('user.html', user=user, posts=posts, form=form)
 
 @app.route('/')
 def index():
@@ -88,6 +89,7 @@ def plans():
     return render_template('plans.html', posts=posts)
 
 @app.route('/<username>/plans')
+@login_required
 def authplans(username):
     posts = Post.query.all()
     if not posts:

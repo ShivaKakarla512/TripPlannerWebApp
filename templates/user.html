@@ -1,40 +1,139 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- =====BOX ICONS===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-{% block content %}
-    <div class="user" id="main">
-        <h1 style="color:red">Welcome back {{current_user.username}}!</h1>
-        <h2>List of trips you are currently planning: 
-            {% for post in posts %}
-                <ul>&#128205;{{ post.city }} - {{ post.description }} <a href="{{ url_for('delete', post_id=post.id) }}">Delete</a></ul>
-            {% endfor %}
-        </h2>
-        <h1 class="blue">Plan a trip to this city:</h1>
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 
-        <form method="post">
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.city.label }}<br>
-                {{ form.city(size=32) }}<br>
-                {% for error in form.city.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>
-                {{ form.country.label }}<br>
-                {{ form.country(size=64) }}<br>
-                {% for error in form.country.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>
-                {{ form.description.label }}<br>
-                {{ form.description(size=32) }}<br>
-                {% for error in form.description.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>{{ form.submit() }}</p>
-        </form>
-    </div>
+        <title>Travel Cube</title>
+    </head>
 
-{% endblock %}
+    <body>
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                <div>
+                    <a href="{{ url_for('index') }}" class="nav__logo">Travel Cube</a>
+                </div>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="{{ url_for('index') }}" class="nav__link active">Home</a></li>
+                        {% if current_user.is_anonymous %}
+                        <li class="nav__item"><a href="{{ url_for('plans') }}" class="nav__link active">Plans</a></li>
+                        <li class="nav__item"><a href="{{ url_for('register') }}" class="nav__link auth">Register</a></li>
+                        <li class="nav__item"><a href="{{ url_for('login') }}" class="nav__link auth">Login</a></li>
+                        {% else %}
+                        <li class="nav__item"><a href="{{ url_for('authplans', username=current_user.username) }}" class="nav__link">Plans</a></li>
+                        <li class="nav__item"><a href="{{ url_for('user', username=current_user.username) }}" class="nav__link">Profile</a></li>
+                        <li class="nav__item"><a href="{{ url_for('logout') }}" class="nav__link auth">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <section class="content" id="main">
+            <div>
+                <div class="newouter">
+                    <div class="newinner">
+                        <h1 class="header">Welcome back {{current_user.username}}!</h1>
+                        <h2 class="secondheader">Trips you are currently planning:</h2>
+                        <div class="scroll">
+                            {% for post in posts %}
+                                <div class="plans">
+                                    <div class="city">
+                                        <p class="cityname">{{ post.city | title}}</p>
+                                        <p class="description">{{ post.description }}</p>
+                                    </div>
+                                    
+                                    <div class="authtime">
+                                        <p class="author"><span class="time">{{ post.timestamp.strftime('%I:%M %p, %b %d %Y') }}</span></p>
+                                    </div>
+
+                                    <div class="delete">
+                                        <a href="{{ url_for('delete', post_id=post.id) }}"><i class='bx bx-x likeicon'></i></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="nextinner form bd-grid">
+                        <form method="post" class="form__content">
+                            <h1 class="formtitle">New Post:</h1>
+                            {{ form.hidden_tag() }}
+
+
+                            <div class="form__div">
+                                <div class="form__icon">
+                                    <i class='bx bxs-city'></i>
+                                </div>
+                
+                                <div class="form__div-input">
+                                    {{ form.city.label(class="form__label") }}
+                                    {{ form.city(class="form__input") }}
+                                </div>
+                            </div>
+
+                            <div class="form__div">
+                                <div class="form__icon">
+                                    <i class='bx bxs-flag-alt'></i>
+                                </div>
+                
+                                <div class="form__div-input">
+                                    {{ form.country.label(class="form__label") }}
+                                    {{ form.country(class="form__input") }}
+                                </div>
+                            </div>
+
+                            <div class="form__div">
+                                <div class="form__icon">
+                                    <i class='bx bx-text'></i>
+                                </div>
+                
+                                <div class="form__div-input">
+                                    {{ form.description.label(class="form__label") }}
+                                    {{ form.description(class="form__input") }}
+                                </div>
+                            </div>
+
+                            {{ form.submit(class="form__button") }}
+
+                            {% for error in form.city.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+
+                            {% for error in form.country.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+
+                            {% for error in form.description.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--===== GSAP =====-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="{{ url_for('static', filename='main.js') }}"> </script>
+    </body>
+</html>

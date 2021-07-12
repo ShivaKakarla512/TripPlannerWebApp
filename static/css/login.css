@@ -174,7 +174,7 @@ a{
 /*===== MEDIA QUERIS =====*/
 @media screen and (min-width: 968px){
     .form{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, max-content);
         justify-content: center;
         column-gap: 0rem;
         padding-left: 2rem;

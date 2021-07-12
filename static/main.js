@@ -58,7 +58,7 @@ function move(e){
 
 
 /*===== GSAP ANIMATION =====*/
-TweenMax.to('.nav__logo, .nav__item, .nav__toggle, .home__title, .home__description, .home__button, .form__content, .plans, .img, .header', 0, {
+TweenMax.to('.nav__logo, .nav__item, .nav__toggle, .home__title, .home__description, .home__button, .form__content, .plans, .img, .header, .secondheader', 0, {
     autoAlpha: 1
 });
 
@@ -78,6 +78,8 @@ gsap.from('.img', {opacity: 0, duration: 1, delay:1, y: 30})
 //PLANS
 gsap.from('.header', {opacity: 0, duration: 1, delay:.7, y: 30})
 gsap.from('.plans', {opacity: 0, duration: 1, delay: 1, y: 30, stagger: 0.3})
+
+gsap.from('.secondheader', {opacity: 0, duration: 1, delay:.85, y: 30})
 
 TweenMax.to('.home__img', 7, {
     autoAlpha: 1

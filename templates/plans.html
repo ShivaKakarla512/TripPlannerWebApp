@@ -4,24 +4,26 @@
 
     <div class="outer" id="main">
         <div class="inner">
-            <h1 class="header">Check out where everyone is going!</h1>
-            {% for post in posts %}
-                <div class="plans">
-                    <div class="city">
-                        <p class="cityname">{{ post.city | title}}</p>
-                        <p class="description">{{ post.description }}</p>
-                    </div>
-                    
-                    <div class="authtime">
-                        <p class="author">{{ post.author.username }} - <span class="time">{{ post.timestamp.strftime('%I:%M %p, %b %d %Y') }}</span></p>
-                    </div>
+            <h1 class="header">Feed</h1>
+            <div class="scroll">
+                {% for post in posts %}
+                    <div class="plans">
+                        <div class="city">
+                            <p class="cityname">{{ post.city | title}}</p>
+                            <p class="description">{{ post.description }}</p>
+                        </div>
+                        
+                        <div class="authtime">
+                            <p class="author">{{ post.author.username }} - <span class="time">{{ post.timestamp.strftime('%I:%M %p, %b %d %Y') }}</span></p>
+                        </div>
 
-                    <div class="likes">
-                        <p class="label">Likes</p>
-                        <p class="count">{{ post.likes.count() }}</p>
+                        <div class="likes">
+                            <p class="label">Likes</p>
+                            <p class="count">{{ post.likes.count() }}</p>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 
