@@ -67,6 +67,7 @@ def user(username):
     user = current_user
     user = User.query.filter_by(username=user.username).first()
     posts = Post.query.filter_by(user_id=user.id)
+    length = Post.query.filter_by(user_id=user.id).count()
     if posts is None:
         posts = []
     form = DestinationForm()
@@ -75,7 +76,7 @@ def user(username):
         db.session.add(new_destination)
         db.session.commit()
         return redirect (url_for("authplans", username=user.username))
-    return render_template('user.html', user=user, posts=posts, form=form)
+    return render_template('user.html', user=user, posts=posts, form=form, length=length)
 
 @app.route('/')
 def index():

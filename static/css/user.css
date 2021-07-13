@@ -37,11 +37,31 @@
     margin-right: 2rem;
 }
 
+.scroll0 {
+    display: grid;
+    row-gap: 1.5rem;
+    width: 100%;
+    grid-auto-rows: min-content;
+    justify-content: center;
+    height: fit-content;
+    overflow-y: auto;
+    margin-top: 1rem;
+    margin-right: 2rem;
+}
+
 .scroll::-webkit-scrollbar-thumb {
     background-color: #c953c5;
 }
 
 .scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scroll0::-webkit-scrollbar-thumb {
+    background-color: #c953c5;
+}
+
+.scroll0::-webkit-scrollbar {
     width: 5px;
 }
 
@@ -198,6 +218,16 @@
 
 @media screen and (min-width: 968px) {
     .scroll {
+        justify-content: center;
+        margin-top: 2rem;
+        grid-template-columns: repeat(2, 500px);
+        column-gap: 1.5rem;
+        row-gap: 2rem;
+        height: 35vh;
+        /* height: fit-content; */
+    }
+
+    .scroll0 {
         justify-content: center;
         margin-top: 2rem;
         grid-template-columns: repeat(2, 500px);
